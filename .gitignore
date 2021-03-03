@@ -2,6 +2,7 @@
 deploy/*
 modules/*/build/*
 gradleDeps/*
+.idea/cuba-project.xml
 
 ### Linux template
 *~
