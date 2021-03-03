@@ -30,6 +30,9 @@ import org.gradle.language.base.plugins.LifecycleBasePlugin
 
 import java.nio.charset.StandardCharsets
 
+/**
+ * Copy/paste of CubaUberJarBuilding, because it doesn't have package
+ */
 class MicroserviceCubaUberJarBuilding extends DefaultTask {
 
     private static final String LIBS_DIR = "libs"
@@ -656,7 +659,7 @@ class MicroserviceCubaUberJarBuilding extends DefaultTask {
 
     protected void copySharedLibs(Project theProject, Collection<String> jarNames, Set<String> resolvedLibs) {
         theProject.copy {
-            from theProject.configurations.runtime
+            from theProject.configurations.runtimeClasspath
             from theProject.libsDir
             from theProject.configurations.jdbc
             into "${getSharedLibsDir(theProject)}"
@@ -677,7 +680,7 @@ class MicroserviceCubaUberJarBuilding extends DefaultTask {
 
     protected void copyAppLibs(Project theProject, Collection<String> jarNames, Set<String> resolvedLibs) {
         theProject.copy {
-            from theProject.configurations.runtime
+            from theProject.configurations.runtimeClasspath
             from theProject.libsDir
             from theProject.configurations.jdbc
             into "${getAppLibsDir(theProject)}"
