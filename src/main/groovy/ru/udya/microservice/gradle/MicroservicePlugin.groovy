@@ -48,38 +48,8 @@ class MicroservicePlugin implements Plugin<Project> {
         }
 
         project.configurations {
-            microserviceCompile
-            microserviceOnlyInDeps
-
-            compile.extendsFrom(microserviceCompile)
-            compile.extendsFrom(microserviceOnlyInDeps)
-            runtime.extendsFrom(microserviceDependenciesImplementation)
-
+//            runtime.extendsFrom(microserviceDependenciesImplementation)
         }
-//        if (project != project.rootProject) {
-//
-//            project.configurations {
-//                microservice
-//            }
-//
-//            // create an adhoc component
-//            def adhocComponent = softwareComponentFactory.adhoc("myAdhocComponent")
-//            // add it to the list of components that this project declares
-//            project.components.add(adhocComponent)
-//            // and register a variant for publication
-//
-//            project.logger.info("[MicroservicePlugin] applying to project ${project.components.collect {it.name}}")
-//
-////            project.components.java.withVariantsFromConfiguration(project.configurations.runtimeElements) {
-////                skip()
-////            }
-//
-//            project.logger.info("[MicroservicePlugin] applying to project ${project.configurations.dump()}")
-//
-//            adhocComponent.addVariantsFromConfiguration(project.configurations.microservice) {
-//                it.mapToMavenScope("runtime")
-//            }
-//        }
 
         project.afterEvaluate { Project p ->
             addDependenciesFromMicroservices(p)
