@@ -1,0 +1,54 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'groovy'
+    id 'java'
+    id 'maven-publish'
+}
+
+group 'ru.udya.microservice'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.14', ext: 'pom'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+gradlePlugin {
+    plugins {
+        microservicePlugin {
+            id = 'ru.udya.microservice.microservice-plugin'
+            implementationClass = 'ru.udya.microservice.gradle.MicroservicePlugin'
+        }
+    }
+}
+
+publishing {
+    publications {
+        haulmontPremium(MavenPublication) {
+            artifactId = rootProject.name
+            from components.java
+            pom {
+                name = 'Microservice Gradle Plugin'
+                description = 'Microservice Gradle Plugin'
+                scm {
+                    connection = 'scm:git:git@git.haulmont.com:bespoke/hse/component/smartlms-client.git'
+                    developerConnection = 'scm:git:git@git.haulmont.com:bespoke/hse/component/smartlms-client.git'
+                    url = 'https://git.haulmont.com/bespoke/hse/component/smartlms-client'
+                }
+            }
+        }
+    }
+}
+
+def baseDistributionArtifactsPath = "${project.buildDir}/distributions/microservice-gradle-plugin"
+task buildArtifactsForAllModule(type: Copy) {
+    from project.tasks.withType(AbstractArchiveTask)
+    from project.tasks.withType(GenerateMavenPom)
+    into baseDistributionArtifactsPath
+}
