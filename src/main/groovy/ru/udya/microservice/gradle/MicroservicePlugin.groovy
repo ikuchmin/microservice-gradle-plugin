@@ -18,6 +18,8 @@ import static org.apache.commons.io.IOUtils.closeQuietly
 
 class MicroservicePlugin implements Plugin<Project> {
 
+    public static final String DEPLOY_TASK_NAME = 'deploy'
+
     public static final String MICROSERVICE_INHERITED_JAR_NAMES = 'inheritedMicroserviceDeployJarNames'
 
     public static final String APP_COMPONENT_ID_MANIFEST_ATTRIBUTE = 'App-Component-Id'

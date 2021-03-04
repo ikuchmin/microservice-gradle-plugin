@@ -410,16 +410,16 @@ class MicroserviceCubaUberJarBuilding extends DefaultTask {
             logbackConfigurationFile = "$project.rootDir/$logbackConfigurationFile"
         }
 
-        def deployCore = coreProject.tasks.getByPath(CubaPlugin.DEPLOY_TASK_NAME)
+        def deployCore = coreProject.tasks.getByPath(MicroservicePlugin.DEPLOY_TASK_NAME)
 
         def deployWeb = null
         if (webProject) {
-            deployWeb = webProject.tasks.getByPath(CubaPlugin.DEPLOY_TASK_NAME)
+            deployWeb = webProject.tasks.getByPath(MicroservicePlugin.DEPLOY_TASK_NAME)
         }
 
         def deployPortal = null
         if (portalProject) {
-            deployPortal = portalProject.tasks.getByPath(CubaPlugin.DEPLOY_TASK_NAME)
+            deployPortal = portalProject.tasks.getByPath(MicroservicePlugin.DEPLOY_TASK_NAME)
         }
 
         coreJarNames = deployCore.getAllJarNames()

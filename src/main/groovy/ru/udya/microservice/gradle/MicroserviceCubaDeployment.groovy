@@ -21,6 +21,11 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import ru.udya.miroservice.gradle.dependency.DependencyResolver
 
+import static ru.udya.microservice.gradle.MicroservicePlugin.MICROSERVICE_INHERITED_JAR_NAMES
+
+/**
+ * Copy/paste from CubaDeployment because it doesn't have package
+ */
 class MicroserviceCubaDeployment extends DefaultTask {
     public static final String INHERITED_JAR_NAMES = 'inheritedDeployJarNames'
 
@@ -41,20 +46,29 @@ class MicroserviceCubaDeployment extends DefaultTask {
     Set getAllJarNames() {
         Set res = new HashSet()
         res.addAll(jarNames)
+        res.addAll(getAllInheritedJarNames())
+        return res
+    }
+
+    Set getAllInheritedJarNames() {
+        Set res = new HashSet()
         if (project.hasProperty(INHERITED_JAR_NAMES)) {
             def inheritedJarNames = project[INHERITED_JAR_NAMES]
             res.addAll(inheritedJarNames)
         }
+        if (project.hasProperty(MICROSERVICE_INHERITED_JAR_NAMES)) {
+            def inheritedJarNames = project[MICROSERVICE_INHERITED_JAR_NAMES]
+            res.addAll(inheritedJarNames)
+        }
+
+        project.logger.info("[CubaDeployment] adding inherited JAR names: ${res}")
+
         return res
     }
 
     @TaskAction
     void deploy() {
-        if (project.hasProperty(INHERITED_JAR_NAMES)) {
-            def inheritedJarNames = project[INHERITED_JAR_NAMES]
-            project.logger.info("[CubaDeployment] adding inherited JAR names: ${inheritedJarNames}")
-            jarNames.addAll(inheritedJarNames)
-        }
+        def localJarNames = getAllJarNames()
 
         if (!tomcatRootDir)
             tomcatRootDir = new File(project.cuba.tomcat.dir).canonicalPath
@@ -94,7 +108,7 @@ class MicroserviceCubaDeployment extends DefaultTask {
                 }
 
                 def libraryName = DependencyResolver.getLibraryDefinition(file.name).name
-                if (jarNames.contains(libraryName)) {
+                if (localJarNames.contains(libraryName)) {
                     return false
                 }
 
@@ -140,7 +154,7 @@ class MicroserviceCubaDeployment extends DefaultTask {
 
                 def libraryName = DependencyResolver.getLibraryDefinition(file.name).name
 
-                if (!jarNames.contains(libraryName)) {
+                if (!localJarNames.contains(libraryName)) {
                     return false
                 }
 
