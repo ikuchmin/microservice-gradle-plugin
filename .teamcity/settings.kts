@@ -183,7 +183,7 @@ object General : BuildType({
 object MicroserviceGradlePluginVcs : GitVcsRoot({
     name = "Microservice Gradle Plugin"
     url = "https://github.com/ikuchmin/microservice-gradle-plugin.git"
-    branchSpec = "+:refs/heads/*"
+    branchSpec = "+:refs/pull/*/head"
     authMethod = uploadedKey {
         uploadedKey = "hse-automation"
     }
