@@ -142,8 +142,17 @@ object Build : BuildType({
             """.trimIndent()
         }
 
+        script {
+            id = "TEST BRANCH"
+            scriptContent = """
+                #! /bin/sh
+                
+                echo "test"
+            """.trimIndent()
+        }
+
         stepsOrder = arrayListOf("PRELOAD_DOCKER_IMAGES", "RUNNER_20", "BUILD",
-                "PUBLISH_ARTIFACT_TO_DEV_BY_BUILD_NUMBER", "PUBLISH_ARTIFACT_TO_THIRD_PARTY")
+                "PUBLISH_ARTIFACT_TO_DEV_BY_BUILD_NUMBER", "PUBLISH_ARTIFACT_TO_THIRD_PARTY", "TEST BRANCH")
     }
 
     triggers {
