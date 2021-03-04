@@ -1,12 +1,12 @@
 package ru.udya.microservice.gradle
 
+import com.haulmont.gradle.project.Projects
 import groovy.util.slurpersupport.GPathResult
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ResolvedArtifact
 import org.gradle.api.artifacts.ResolvedDependency
 import org.gradle.api.component.SoftwareComponentFactory
-import ru.udya.miroservice.gradle.project.Projects
 
 import javax.inject.Inject
 import java.nio.charset.StandardCharsets
@@ -15,6 +15,10 @@ import java.util.jar.JarFile
 import java.util.jar.Manifest
 
 import static org.apache.commons.io.IOUtils.closeQuietly
+
+/**
+ * Copy/paste from CubaPlugin because it doesn't have package
+ */
 
 class MicroservicePlugin implements Plugin<Project> {
 
@@ -47,10 +51,6 @@ class MicroservicePlugin implements Plugin<Project> {
             registerFeature('microserviceDependencies') {
                 usingSourceSet(project.sourceSets.main)
             }
-        }
-
-        project.configurations {
-//            runtime.extendsFrom(microserviceDependenciesImplementation)
         }
 
         project.afterEvaluate { Project p ->

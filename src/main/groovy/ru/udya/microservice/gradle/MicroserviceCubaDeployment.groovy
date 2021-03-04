@@ -1,5 +1,7 @@
 package ru.udya.microservice.gradle
 
+import com.haulmont.gradle.dependency.DependencyResolver
+
 /*
  * Copyright (c) 2008-2016 Haulmont.
  *
@@ -19,7 +21,6 @@ package ru.udya.microservice.gradle
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
-import ru.udya.miroservice.gradle.dependency.DependencyResolver
 
 import static ru.udya.microservice.gradle.MicroservicePlugin.MICROSERVICE_INHERITED_JAR_NAMES
 
