@@ -52,7 +52,7 @@ object Build : BuildType({
 
     val artifactSummary = "build/distributions/published_artifacts.json"
 
-    publishArtifacts = replace on PublishMode.SUCCESSFUL
+    publishArtifacts = PublishMode.SUCCESSFUL
     artifactRules = artifactSummary
 
     val dockerImagesLoaderPluginDockerImage = "%dockerDevRepository%/teamcity/docker-images-loader:latest"
