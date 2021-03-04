@@ -52,6 +52,12 @@ publishing {
     }
 }
 
+task printVersion {
+    doLast {
+        println project.version
+    }
+}
+
 def baseDistributionArtifactsPath = "${project.buildDir}/distributions/microservice-gradle-plugin"
 task buildArtifactsForAllModule(type: Copy) {
     from project.tasks.withType(AbstractArchiveTask)
